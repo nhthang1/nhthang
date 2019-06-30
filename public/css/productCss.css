@@ -1,0 +1,19 @@
+#scrollTop {
+	position: fixed;
+	display: block;
+	width: 50px;
+	height: 50px;
+	border-radius: 30px;
+	color: #FFF;
+	background-color: #c2d6d6;
+	bottom: 50px;
+	right: 20px;
+	line-height: 50px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#scrollTop:hover {
+	background-color: black;
+	color: #FFF;
+}
