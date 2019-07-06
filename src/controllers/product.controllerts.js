@@ -80,6 +80,8 @@ exports.products_get_product = (req, res) => {
 
 
   exports.product_get_by_id = (req, res) => {
+    const cart = new Cart(req.session.cart || {});
+    const cartLength = cart.totalItems;
     const { id } = req.params;
     const dbname = 'shop';
     (async function mongo() {
@@ -94,7 +96,7 @@ exports.products_get_product = (req, res) => {
         const product = await col.findOne({ _id: new ObjectId(id) });
         debug('product');
         res.render('singleitem',
-          { Title: product.tensanpham, clo: product });
+          { Title: product.tensanpham, clo: product, cartLength });
       } catch (err) {
         debug(err.stack);
       }

@@ -250,7 +250,11 @@
         <div class="sidebar left " style="height: 40em;">
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="http://via.placeholder.com/160x160" class="rounded-circle" alt="User Image" />
+              <img
+                src="http://via.placeholder.com/160x160"
+                class="rounded-circle"
+                alt="User Image"
+              />
             </div>
             <div class="pull-left info">
               <p>Admin</p>
@@ -264,25 +268,40 @@
                 <span class="nav-label"> Tổng quan</span>
               </a>
             </li>
-  
+
             <li>
-              <a href="/admin/warehouse" data-toggle="collapse" data-target="#khohang" class="active">
+              <a
+                href="/admin/warehouse"
+                data-toggle="collapse"
+                data-target="#khohang"
+                class="active"
+              >
                 <i class="fa fa-th-large"></i>
                 <span class="nav-label"> Kho hàng</span>
               </a>
             </li>
             <li>
-              <a href="/admin/users" class="active"><i class="fa fa-diamond"></i>
-                <span class="nav-label">Người dùng</span></a>
+              <a href="/admin/users" class="active"
+                ><i class="fa fa-diamond"></i>
+                <span class="nav-label">Người dùng</span></a
+              >
             </li>
             <li>
-              <a href="/admin/orders" data-toggle="collapse" data-target="#products" class="active">
+              <a
+                href="/admin/orders"
+                data-toggle="collapse"
+                data-target="#products"
+                class="active"
+              >
                 <i class="fa fa-bar-chart-o"></i>
-                <span class="nav-label">Đơn hàng</span></a>
+                <span class="nav-label">Đơn hàng</span></a
+              >
             </li>
             <li>
-              <a href="/admin/blogs" class="active"><i class="fa fa-laptop"></i>
-                <span class="nav-label">Đăng bài</span></a>
+              <a href="/admin/blogs" class="active"
+                ><i class="fa fa-laptop"></i>
+                <span class="nav-label">Đăng bài</span></a
+              >
             </li>
           </ul>
         </div>
@@ -291,15 +310,14 @@
       <div class="container-right">
         <h4>Thêm bài mới</h4>
         <br />
-        Tiêu đề<br />
-        <input type="text" name="post" style="width: 80%" /><br /><br />
-
-        <button>
-          <i class="fa fa-laptop"></i>
-          Thêm ảnh/video</button
-        ><br /><br />
-        <textarea style="width: 80%; height:20em;"></textarea><br /><br />
-        <button class="btn btn-info">Đăng bài</button>
+        <form action="post">
+          Tiêu đề<br />
+          <input type="text" name="post" style="width: 80%" /><br /><br />
+          <input type="file" name="myFile" value="Thêm ảnh/video">
+         
+          <textarea style="width: 80%; height:20em;"></textarea><br /><br />
+          <button class="btn btn-info">Đăng bài</button>
+        </form>
       </div>
     </div>
     <!-- ./main -->

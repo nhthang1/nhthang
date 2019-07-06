@@ -3,6 +3,7 @@ const debug = require('debug')('app:authRoutes');
 const passport = require('passport');
 const { MongoClient } = require('mongodb');
 const uri = 'mongodb+srv://sa:sa@cluster0-bg155.mongodb.net/test?retryWrites=true&w=majority';
+const Cart = require('../model/cart');
 
 exports.auth_create_user = (req, res) => {
     const { username, password } = req.body;
@@ -31,25 +32,37 @@ exports.auth_create_user = (req, res) => {
 
 
   exports.auth_login = passport.authenticate('local', {
-    successRedirect: '/cart',
+    successRedirect: '/product',
     failureRedirect: '/auth/signIn',
   })
 
   exports.auth_check_admin = (req, res, next) => {
+    if(!req.user) {
+      next();
+    }
     if (req.user) {
       if (req.user.username === '1' && req.user.password === '1') {
         res.redirect('/admin');
       }
       res.redirect('/auth/profile');
-    } else {
-      next();
     }
   }
 
   exports.auth_get_page = (req, res) => {
-    res.render('signin');
+    console.log(req.session.cart);
+    const cart = new Cart(req.session.cart || {});
+    const cartLength = cart.totalItems;
+    console.log(cartLength);
+    res.render('signin', {cartLength});
   }
 
   exports.auth_get_profile = (req, res) => {
-    res.render('profile');
+    const cart = new Cart(req.session.cart || {});
+    const cartLength = cart.totalItems;
+    res.render('profile', {cartLength});
+  }
+
+  exports.user_change_profile = (req, res) => {
+    console.log(req.file);
+    res.send('heeloo');
   }

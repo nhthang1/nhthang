@@ -206,70 +206,34 @@
         <table class="table table-hover shopping-cart-wrap">
           <thead class="text-muted">
             <tr>
-              <th scope="col">Tên sản phẩm</th>
+              <th scope="col">mã đơn hàng</th>
+              <th scope="col">địa chỉ</th>
+              <th scope="col">Người mua</th>
               <th scope="col" width="150">Số lượng</th>
-              <th scope="col" width="150">người mua</th>
+              <th scope="col" width="150"> Tổng tiền </th>
               <th scope="col" width="150">Trạng thái</th>
               
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <figure class="media">
-                  <div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>
-                  <figcaption class="media-body">
-                    <h6 class="title text-truncate">Product name goes here </h6>
-                    <dl class="param param-inline small">
-                      <dt>Size: </dt>
-                      <dd>XXL</dd>
-                    </dl>
-                    <dl class="param param-inline small">
-                      <dt>Color: </dt>
-                      <dd>Orange color</dd>
-                    </dl>
-                  </figcaption>
-                </figure> 
-              </td>
-              <td> 100</td>
-              <td> 
-                <div> 
-                  nhthang 
-                </div> <!-- price-wrap .// -->
-              </td>
-              <td class="text-center"><i class="fa fa-circle text-warning"></i> chờ xử lý
-              </td>
-            </tr>
 
-            <tr>
-              <td>
-                <figure class="media">
-                  <div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>
-                  <figcaption class="media-body">
-                    <h6 class="title text-truncate">Product name goes here </h6>
-                    <dl class="param param-inline small">
-                      <dt>Size: </dt>
-                      <dd>XXL</dd>
-                    </dl>
-                    <dl class="param param-inline small">
-                      <dt>Color: </dt>
-                      <dd>Orange color</dd>
-                    </dl>
-                  </figcaption>
-                </figure> 
-              </td>
-              <td> 100</td>
-              <td> 
-                <div> 
-                  nhthang 
-                </div> <!-- price-wrap .// -->
-              </td>
-              <td class="text-center"><i class="fa fa-circle text-success"></i> Đã giao hàng
-              </td>
-            </tr>
-
-            
-            
+            <% for (var i = 0; i < orders.length; i++) {%>
+              <tr>
+                  <td>
+                        <a href="orders/<%= orders[i]._id %>" style="text-decoration: none;"  ><%= orders[i]._id %> </a>
+                  </td>
+                   <td> <%= orders[i].province %></td>
+                  <td> <%= orders[i].name %></td>
+                  <td> <%= orders[i].cart.totalItems %></td>
+                  <td> 
+                    <div> 
+                        <%= orders[i].cart.totalPrice %>
+                    </div> <!-- price-wrap .// -->
+                  </td>
+                  <td ><i class="fa fa-circle text-success"></i> Đã giao hàng
+                  </td>
+                </tr>
+              <% } %>
           </tbody>
         </table>
       </div> <!-- card.// -->

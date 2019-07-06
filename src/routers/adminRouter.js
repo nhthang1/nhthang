@@ -26,7 +26,8 @@ function router(uri) {
   adminRouter.route('/blogs')
     .get(adminControllers.admin_post_blog)
 
-
+    adminRouter.route('/orders/:id')
+    .get(adminControllers.admin_orders_get_order);
   return adminRouter;
 }
 

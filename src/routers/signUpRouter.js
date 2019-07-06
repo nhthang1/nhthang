@@ -3,19 +3,12 @@ const express = require('express');
 
 const signUpRouter = express.Router();
 
+const signUnController = require('../controllers/signUp.controllers')
+
 function router() {
   signUpRouter.route('/')
-    .all((req, res, next) => {
-      if (req.user) {
-        req.logout();
-        res.redirect('/signUp');
-      } else {
-        next();
-      }
-    })
-    .get((req, res) => {
-      res.render('signUp');
-    });
+    .all(signUnController.user_signin)
+    .get(signUnController.user_get_page);
 
 
   return signUpRouter;
