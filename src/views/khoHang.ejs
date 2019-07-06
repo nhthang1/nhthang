@@ -251,12 +251,63 @@
                 </div> <!-- price-wrap .// -->
               </td>
               <td class="text-right"> 
-                <a href="" class="btn btn-outline-danger"> × Remove</a>
+ 
+              <a class="btn btn-outline-danger" href="admin/warehouse/<%= clo[i]._id %>">× Remove</a>
+                
               </td>
             </tr>
             <% } %>
           </tbody>
         </table>
+               <!-- Pagination -->
+
+               <nav aria-label="...">
+                  <ul class="pagination">
+                    <% if (pageCurrent == 1) { %>
+                    <li class="page-item disabled">
+                      <a class="page-link" href="?pagenumber=<%= parseInt(pageCurrent) - 1  %>" tabindex="-1">Previous</a>
+                    </li>
+                    <% } else {%>
+        
+                    <li class="page-item">
+                      <a class="page-link" href="?pagenumber=<%= parseInt(pageCurrent) - 1  %>" tabindex="-1">Previous</a>
+                    </li>
+        
+                    <% } %>
+        
+                    <% for ( var i = 1; i <= totalPage; i++ ) { %>
+        
+                    <% if (pageCurrent != i) { %>
+        
+                    <li class="page-item">
+                      <a class="page-link" href="?pagenumber=<%= i  %>"><%= i %></a>
+                    </li>
+                    <% } else {%>
+                    <li class="page-item active">
+                      <a class="page-link" href="?pagenumber=<%= i  %>"><%= i %> <span class="sr-only">(current)</span></a>
+                    </li>
+        
+                    <% } %>
+        
+                    <% } %>
+        
+                    <% if (pageCurrent == totalPage) { %>
+        
+        
+                    <li class="page-item disabled">
+                      <a class="page-link" href="?pagenumber=<%= parseInt(pageCurrent) + 1  %>">Next</a>
+                    </li>
+        
+                    <% } else {%>
+        
+                    <li class="page-item ">
+                      <a class="page-link" href="?pagenumber=<%= parseInt(pageCurrent) + 1  %>">Next</a>
+                    </li>
+                    <% } %>
+                  </ul>
+                </nav>
+        
+                <!-- /.Pagination -->
       </div> <!-- card.// -->
 
     </div> 

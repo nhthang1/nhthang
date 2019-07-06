@@ -15,7 +15,10 @@ function router(uri) {
     .get(adminControllers.admin_init_product);
 
   adminRouter.route('/warehouse')
-    .get(adminControllers.admin_get_warehouse);
+    .get(adminControllers.admin_get_warehouse)
+    .post(adminControllers.admin_delete_product);
+  adminRouter.route('/warehouse/:id')
+    .get(adminControllers.admin_delete_product);
 
   adminRouter.route('/users')
     .get(adminControllers.admin_get_users);

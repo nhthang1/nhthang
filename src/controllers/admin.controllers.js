@@ -4,27 +4,38 @@ const debug = require("debug")("app:adminRouter");
 const uri =
   "mongodb+srv://sa:sa@cluster0-bg155.mongodb.net/test?retryWrites=true&w=majority";
 const Cart = require("../model/cart");
+
 exports.admin_get_page = (req, res) => {
-  // const url = 'mongodb://localhost:27017/';
-  // const dbname = 'shop';
-  // (async function mongo() {
-  //   let client;
-  //   try {
-  //     client = await MongoClient.connect(url);
-  //     debug('connect correctly to server');
+  const url = "mongodb://localhost:27017/";
+  const dbname = "shop";
+  (async function mongo() {
+    let client;
+    try {
+      client = await MongoClient.connect(uri, { useNewUrlParser: true });
+      console.log("connect correctly to server");
+      const db = client.db(dbname);
+      const blogs = 1;
+      const ordercol = await db.collection("customer");
+      const ordersLength = await ordercol.find().count();
 
-  //     const db = client.db(dbname);
+      const productCol = await db.collection("product");
+      const productLength = await productCol.find().count();
 
-  //     //const response = await db.collection('clothes').insertMany(clothes);
-  //     res.json(response);
-  //   } catch (err) {
-  //     debug(err.stack);
-  //   }
-  //   client.close();
-  // }());
-  res.render("adminPage", {
-    Title: "Admin page"
-  });
+      const userCol = await db.collection("user");
+      const userLength = await userCol.find().count();
+      console.log(ordersLength, productLength, userLength);
+      res.render("adminPage", {
+        Title: "Admin page",
+        blogs,
+        ordersLength,
+        productLength,
+        userLength
+      });
+    } catch (err) {
+      debug(err.stack);
+    }
+    client.close();
+  })();
 };
 
 exports.admin_post_product = (req, res) => {
@@ -99,6 +110,7 @@ exports.admin_auth = (req, res, next) => {
 
 exports.admin_get_warehouse = (req, res) => {
   const dbname = "shop";
+  const pageCurrent = req.query.pagenumber || 1;
   (async function mongo() {
     let client;
     try {
@@ -107,16 +119,19 @@ exports.admin_get_warehouse = (req, res) => {
       const db = client.db(dbname);
 
       const col = await db.collection("product");
-
+      const numberCol = await col.find().count();
+      const totalPage = Math.ceil(numberCol / 15);
       const products = await col
         .find()
-        .skip(10)
-        .limit(8)
+        .skip(pageCurrent * 15 - 15)
+        .limit(15)
         .toArray();
 
       res.render("khoHang", {
         Title: "Sản phẩm",
-        clo: products
+        clo: products,
+        totalPage,
+        pageCurrent        
       });
     } catch (err) {
       debug(err.stack);
@@ -190,9 +205,9 @@ exports.admin_orders_get_order = (req, res) => {
       console.log(cart.getItems().length);
       res.render("order", {
         order,
-        products : cart.getItems(),
+        products: cart.getItems(),
         totalPrice: cart.totalPrice,
-        cartLength: cart.getItems().length,
+        cartLength: cart.getItems().length
       });
     } catch (err) {
       debug(err.stack);
@@ -203,4 +218,28 @@ exports.admin_orders_get_order = (req, res) => {
 
 exports.admin_post_blog = (req, res) => {
   res.render("DangBai");
+};
+
+exports.admin_delete_product = (req, res) => {
+  
+
+  const dbname = "shop";
+
+  (async function mongo() {
+    let client;
+    try {
+      client = await MongoClient.connect(uri, { useNewUrlParser: true });
+      debug("connect correcty to server");
+      const db = client.db(dbname);
+
+      const col = await db.collection("product");
+      const myquery = {_id :new ObjectId(req.params.id) };
+      const result = await col.deleteOne(myquery);
+      
+      res.redirect("/admin/warehouse");
+    } catch (err) {
+      debug(err.stack);
+    }
+    client.close();
+  })();
 };

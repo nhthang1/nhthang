@@ -72,7 +72,7 @@ exports.cart_post_order = (req, res) => {
         req.session.cart = cart;
         req.session.save();
         const link = cart.items[id].item.gioitinh;
-        res.redirect(`/product/${link}/${id}`);
+        res.redirect(`/product`);
       } catch (err) {
         debug(err.stack);
       }

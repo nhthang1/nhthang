@@ -22,7 +22,7 @@ exports.products_get_product = (req, res) => {
           .skip(pageCurrent * 15 - 15)
           .limit(15)
           .toArray();
-
+        console.log(totalPage);
         res.render(
           'product',
           {
@@ -41,6 +41,8 @@ exports.products_get_product = (req, res) => {
   }
 
   exports.product_get_by_sex = (req, res) => {
+    const cart = new Cart(req.session.cart || {});
+    const cartLength = cart.totalItems;
     const { sex } = req.params;
     const dbname = 'shop';
     const pageCurrent = (req.query.pagenumber || 1);
@@ -69,6 +71,7 @@ exports.products_get_product = (req, res) => {
             clo: products,
             totalPage,
             pageCurrent,
+            cartLength
           },
         );
       } catch (err) {

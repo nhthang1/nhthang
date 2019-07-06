@@ -46,6 +46,7 @@ const authRouter = require('./src/routers/authRoutes')(uri);
 const cartRouter = require('./src/routers/cartRouter')(uri);
 const homeRouter = require('./src/routers/indexRouter')(uri);
 const blogRouter = require('./src/routers/blogRouter')();
+const contactRouter = require('./src/routers/contactRouter')();
 
 app.use('/', homeRouter);
 app.use('/product', productRouter);
@@ -54,6 +55,7 @@ app.use('/signup', signUpRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
 app.use('/blogs',blogRouter);
+app.use('/contact',contactRouter);
 
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
